@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class form
  */
-public class form extends HttpServlet {
+public class FormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public form() {
+	public FormServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -30,9 +30,8 @@ public class form extends HttpServlet {
 			throws ServletException, IOException {
 
 		String name = (String) request.getParameter("name");
-		if (name == null) {
+		if (name == null || name.equals("")) {
 			sendNameNotRecievedResponse(response);
-			System.out.println("Aqui " + request.getParameter("name"));
 		} else {
 			sendHelloResponse(response, name);
 		}
@@ -49,9 +48,8 @@ public class form extends HttpServlet {
 
 	}
 
-	private void sendNameNotRecievedResponse(HttpServletResponse response) {
-		response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
-		
+	private void sendNameNotRecievedResponse(HttpServletResponse response) throws IOException {
+		response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 
 	}
 
